@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html id="bgChange" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titleChange">Cash-Hub || Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/dist/images/Screenshot_from_2025-03-15_07-10-11-removebg-preview.png" type="image/x-icon">
+
+    <!-- <style>
+        .hide {
+             display: none;
+             }
+        .show { 
+            display: block; }
+    </style> -->
+</head>
+<body>
+        
+     <div class="flex items-center justify-center h-screen bg-gray-100">  
+
+    <div class="w-96 p-6 bg-white shadow-md rounded-lg h-[400px]">
+        <!-- sign up pag-->
+        <div id="signupForm" class="transition-all ease-in-out duration-500">
+            <h2 class="text-2xl font-bold mb-4 text-center animate-bounce">Sign Up</h2>
+
+            <input type="text" id="signupName" class="w-full p-2 mb-2 border rounded-xl border-gray-500  " placeholder="Enter Name">
+            <span id="signupNameError" class="text-red-500 text-sm"></span>
+
+            <input type="password" id="signupPassword" class="w-full p-2 mt-2 mb-2 border border-gray-500 rounded-xl" placeholder="Enter Password">
+            <span id="signupPasswordError" class="text-red-500 text-sm"></span>
+
+            <input type="email"  id="signupEmail" class="w-full p-2 mt-2 mb-2 border border-gray-500 rounded-xl " placeholder="Enter Email Address">
+            <span id="signupEmailError" class="text-red-500 text-sm"></span>
+            
+            <button id="signupBtn" class="w-full bg-gradient-to-r from-orange-600 to-black font-bold text-white p-2 rounded-2xl mt-3 hover:bg-gradient-to-r hover:from-black hover:to-orange-600">Sign Up</button>
+            <p class="text-sm mt-10 text-center">
+                Already have an account? 
+                <a href="#" id="showLogin" class="text-orange-500">Login</a>
+            </p>
+        </div>
+
+        <!-- log in page -->
+        <div id="loginForm" class="hidden transition-all ease-in-out duration-500">
+            <h2 class="text-2xl font-bold mb-4 text-center animate-bounce">Login</h2>
+
+            <input type="text" id="loginName" class="w-full p-2 mb-2 border  border-gray-500 rounded-xl" placeholder="Enter Name">
+            <span id="loginNameError" class="text-red-500 text-sm"></span>
+
+            <input type="password" id="loginPassword" class="w-full p-2 mt-2 mb-2 border border-gray-500  rounded-xl" placeholder="Enter Password">
+            <span id="loginPasswordError" class="text-red-500 text-sm"></span>
+
+            <input type="email" id="loginEmail" class="w-full p-2 mt-2 mb-2 border border-gray-500  rounded-xl" placeholder="Enter Email Address">
+            <span id="loginEmailError" class="text-red-500 text-sm"></span>
+
+            <button id="loginBtn" class="w-full bg-gradient-to-r from-black to-orange-600 font-bold text-white p-2 rounded-2xl mt-3 hover:bg-gradient-to-r hover:from-orange-600 hover:to-black">Login</button>
+            <p class="text-sm mt-10 text-center">
+                Don't have an account? 
+                <a href="#" id="showSignup" class="text-orange-500">Sign Up</a>
+            </p>
+        </div>
+    </div>
+     </div>
+
+
+
+    <script src="signup.js"> </script>
+</body>
+</html>

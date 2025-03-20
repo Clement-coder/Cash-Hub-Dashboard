@@ -3,11 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Hub-Dashboard</title>
+    <title>Cash Hub || Dashboard</title>
     <link rel="shortcut icon" href="/dist/images/Screenshot_from_2025-03-15_07-10-11-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-200">
+
+<!-- overlay -->
+<div id="transferContainer" class="fixed inset-0 z-50 bg-gray-500 bg-opacity-50 hidden flex justify-center items-center">
+    <!-- transfer container Box -->
+    <div id="transferBox" class="bg-white p-4 rounded shadow-lg w-96 max-w-full transform scale-y-0 opacity-0 transition-all duration-300 origin-top">
+        <h2 class="text-lg font-semibold mb-4">Transfer Details</h2>
+        
+        <div>
+            <label for="transferAmount" class="block text-sm font-medium text-gray-700">Amount</label>
+            <span id="amountError" class="text-red-500 text-sm"></span>
+            <input id="receiversAmount" type="number" id="transferAmount" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Enter amount">
+
+            <label for="receiversName" class="block text-sm font-medium text-gray-700">Recipient Name</label>
+            <span id="receiverError" class="text-red-500 text-sm"></span>
+            <input id="receiversName" type="text" id="transferAmount" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Enter Receivers name">
+        </div>
+        
+        <div class="mt-4 flex items-center">
+            <button id="confirmTransfer" class="bg-gradient-to-r from-orange-800 to-black font-bold text-white p-2 rounded">Confirm Transfer</button>
+            <button id="closeModal" class="group ml-2 bg-orange-700/20 font-bold text-gray-700 p-2 w-24 rounded flex items-center gap-6 relative overflow-hidden transition-all duration-300 ease-in-out hover:text-gray-900">
+                <svg class="absolute left-[-30px] opacity-0 transition-all duration-500 ease-in-out group-hover:left-0 group-hover:opacity-100 group-hover:rotate-90 scale-75 group-hover:scale-100" 
+                    xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+                <p class="relative left-5">Cancel</p>
+            </button>
+            
+        </div>
+    </div>
+</div>
 
     <!-- logo and profile -->
 
@@ -37,12 +67,12 @@
                         </svg>
                     </div>
                     
-                    <div class="group cursor-pointer p-2 rounded-xl hover:bg-orange-950 flex items-center ease-in-out text-gray-200 text-lg gap-4 mt-20 transition duration-300">
+                    <div id="transferBtn" class="group cursor-pointer p-2 rounded-xl hover:bg-orange-950 flex items-center ease-in-out text-gray-200 text-lg gap-4 mt-20 transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-170Q136-197 68-282T0-480q0-113 68-198t172-112v84q-71 24-115.5 86T80-480q0 78 44.5 140T240-254v84Zm320 10q-133 0-226.5-93.5T240-480q0-133 93.5-226.5T560-800q66 0 124 25t102 69l-56 56q-33-33-76.5-51.5T560-720q-100 0-170 70t-70 170q0 100 70 170t170 70q50 0 93.5-18.5T730-310l56 56q-44 44-102 69t-124 25Zm240-160-56-56 64-64H520v-80h288l-64-64 56-56 160 160-160 160Z"/></svg>
                         <h1>Transfer</h1>
                         <svg class="group-hover:translate-x-16 transition-transform duration-700 ease-in-out " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
                     </div>
-                    <div class="group cursor-pointer p-2 rounded-xl hover:bg-orange-950 flex items-center ease-in-out text-gray-200 text-lg gap-4 mt-20 transition duration-300">
+                    <div id="logout" class="group cursor-pointer p-2  rounded-xl hover:bg-orange-950 flex items-center ease-in-out text-gray-200 text-lg gap-4 mt-20 transition duration-300">
                         <svg xmlns="http://ww.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
                         <h1>LogOut </h1>
                         <svg class="group-hover:translate-x-16 transition-transform duration-700 ease-in-out " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
@@ -57,6 +87,9 @@
             
         </div>
 
+       
+        
+
         <!-- account balance section -->
         
         <div class="rounded-2xl lg:h-full md:h-[330px] sm:h-[300px] bg-white p-6 m-4 lg:grid lg:grid-cols-2 sm:grid-cols-1">
@@ -64,7 +97,7 @@
             <!-- balance div -->
 
             <div>
-                <h1 id="balanceBox" class="text-3xl  text-gray-900">2587,34€</h1>
+                <h1 id="balanceBox" class="text-3xl  text-gray-900">50000 €</h1>
                 <p class="text-gray-500">Balance</p>
             </div>
 
@@ -83,26 +116,29 @@
                     <li class="relative top-5">15/mar/2025</li>
                 </ul>
             </div>
+
+    
+
             <!-- Transfer and hide balance div -->
             <div class="grid grid-cols-2  gap-4  mt-10 text-center font-bold ">
-                <button id="transferBtn" class="flex items-center gap-2 border border-black rounded-xl py-2 px-2 bg-orange-500/20 w-32 justify-center text-center">
+                <button id="transferBtn" class="flex items-center gap-2 border border-black rounded-xl py-2 px-2 bg-orange-500/20 lg:w-32 md:w-32 sm:w-24 justify-center text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M240-170Q136-197 68-282T0-480q0-113 68-198t172-112v84q-71 24-115.5 86T80-480q0 78 44.5 140T240-254v84Zm320 10q-133 0-226.5-93.5T240-480q0-133 93.5-226.5T560-800q66 0 124 25t102 69l-56 56q-33-33-76.5-51.5T560-720q-100 0-170 70t-70 170q0 100 70 170t170 70q50 0 93.5-18.5T730-310l56 56q-44 44-102 69t-124 25Zm240-160-56-56 64-64H520v-80h288l-64-64 56-56 160 160-160 160Z"/></svg>
                     
                     <p id="transfer">Transfer</p>
                 </button>
-                <button id="hideBtn" class="flex items-center gap-2 border border-black rounded-xl py-2 px-2 bg-orange-500/20 w-32 justify-center text-center">
+                <button id="hideBtn" class="flex items-center gap-2 border border-black rounded-xl py-2 px-2 bg-orange-500/20 lg:w-32 md:w-32 sm:w-24  justify-center text-center">
                     <svg id="hidden" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/></svg>
                     <svg id="show"  class="hidden" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z"/></svg>
                     
                     <p id="viewText">Hide</p>
                 </button>
-                <button id="moreBtn" class="flex items-center gap-2  border border-black rounded-xl py-2 px-2 bg-orange-500/20 w-32 justify-center text-center">
+                <button id="moreBtn" class="flex items-center gap-2  border border-black rounded-xl py-2 px-2 bg-orange-500/20 lg:w-32 md:w-32 sm:w-24 justify-center text-center">
                     <svg id="showCard" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/></svg>
                     <svg id="hideCard" class="hidden" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
                    
                     <p id="more">Cards</p>
                 </button>
-                <button id="aboutBtn" class="flex items-center gap-2  border border-black rounded-xl py-2 px-2 bg-orange-500/20 w-32 justify-center text-center">
+                <button id="aboutBtn" class="flex items-center gap-2  border border-black rounded-xl py-2 px-2 bg-orange-500/20 lg:w-32 md:w-32 sm:w-24  justify-center text-center">
                     <svg id="showAbout" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M480-120 300-300l58-58 122 122 122-122 58 58-180 180ZM358-598l-58-58 180-180 180 180-58 58-122-122-122 122Z"/></svg>
                     <svg id="hideAbout" class="hidden" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
                    
@@ -142,72 +178,7 @@
 
 
 
-    <script>
-        let hideAbout = document.getElementById("hideAbout");
-        let showAbout = document.getElementById("showAbout");
-        let hideCard = document.getElementById('hideCard');
-        let showCard = document.getElementById('showCard');
-        let about =document.getElementById("about");
-        let aboutBtn = document.getElementById("aboutBtn");
-        let aboutDiv = document.getElementById("aboutDiv");
-        let more = document.getElementById("more");
-        let moreBtn = document.getElementById("moreBtn");
-        let imgDiv = document.getElementById("imgDiv");
-        let freeCards = document.getElementById("freeCards");
-        let hidden = document.getElementById("hidden");
-        let viewText = document.getElementById("viewText");
-        let show = document.getElementById("show");
-        let balance = document.getElementById('balanceBox');
 
-        document.getElementById("hideBtn").addEventListener('click', () => {
-            if (balance.innerHTML === "*****") {
-                balance.innerHTML = "2587,34€" 
-                hidden.style.display = "block";
-                show.style.display = "none";
-                viewText.innerHTML = "Hide";
-            } else {
-                balance.innerHTML = "*****";
-                hidden.style.display = "none";
-                show.style.display = "block";
-                viewText.innerHTML = "View";
-            }
-        });
-
-
-        moreBtn.addEventListener("click", () => {
-            if (imgDiv.classList.contains("max-h-0")) {
-                imgDiv.classList.remove("max-h-0");
-                imgDiv.classList.add("max-h-[300px]");
-                hideCard.style.display ="block"
-                showCard.style.display= "none"
-                
-            } else {
-                imgDiv.classList.remove("max-h-[300px]");
-                imgDiv.classList.add("max-h-0");
-                 hideCard.style.display ="none"
-                showCard.style.display= "block"
-
-                
-
-
-            }
-        });
-
-        aboutBtn.addEventListener('click', () => {
-            if (aboutDiv.classList.contains("max-h-0")) {
-                aboutDiv.classList.remove("max-h-0");
-                aboutDiv.classList.add("max-h-[300px]");
-                 hideAbout.style.display ="block"
-                showAbout.style.display= "none"
-            } else {
-                aboutDiv.classList.remove("max-h-[300px]");
-                aboutDiv.classList.add("max-h-0");
-                hideAbout.style.display ="none"
-                showAbout.style.display= "block"
-            }
-        });
-
-      
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
