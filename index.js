@@ -57,15 +57,14 @@ let transferContainer = document.getElementById('transferContainer');
 let transferBox = document.getElementById('transferBox');
 let closeModalButton = document.getElementById('closeModal');
 
-// Function to show modal with smooth transition
+
 let showTransferContainer = () => {
     transferContainer.classList.remove('hidden');
     setTimeout(() => {
         transferBox.classList.remove('opacity-0', 'scale-y-0'); 
-    }, 10); // Small delay for smooth effect
-};
+    }, 10);
 
-// Function to close modal smoothly
+
 let closeTransferContainer = () => {
     transferBox.classList.add('opacity-0', 'scale-y-0'); // Animate out
     setTimeout(() => {
