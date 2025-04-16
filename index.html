@@ -23,6 +23,12 @@
             <label for="receiversName" class="block text-sm font-medium text-gray-700">Recipient Name</label>
             <span id="receiverError" class="text-red-500 text-sm"></span>
             <input id="receiversName" type="text" id="transferAmount" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Enter Receivers name">
+       
+       
+            <label for="accountNumber" class="block text-sm font-medium text-gray-700">Account Number</label>
+            <span id="accountNumberError" class="text-red-500 text-sm"></span>
+            <input id="accountNumber" type="number" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Enter Account Number">
+    
         </div>
         
         <div class="mt-4 flex items-center">
@@ -49,7 +55,7 @@
                 <div class="border border-orange-400 w-20 rounded-full ">
                     <img class="w-20 rounded-full" src="/dist/images/my self.jpg" alt="">
                 </div>
-                <h1 class="text-lg font-bold">Hi &#128075; Clement Raymond</h1>
+                <h1 class="text-lg font-bold">Hi &#128075; <span id="username1"></span></h1>
             </div>
 
             <!-- account, log out and transfer -->
@@ -111,7 +117,7 @@
                     <li class="relative top-5">Date:</li>
                 </ul>
                 <ul class="font-bold">
-                    <li>Clement Raymond</li>
+                    <li><span id="username2"></span></li>
                     <li class="relative top-2">8121257668</li>
                     <li class="relative top-5">15/mar/2025</li>
                 </ul>

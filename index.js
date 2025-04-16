@@ -1,3 +1,26 @@
+window.onload = function () {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn !== "true") {
+        window.location.href = "sign-up.html";
+    }
+
+// Get current logged-in user from localStorage
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+if (currentUser && currentUser.username) {
+    // Set the username for both elements
+    document.getElementById('username1').innerHTML = currentUser.username;
+    document.getElementById('username2').innerHTML = currentUser.username;
+} else {
+    // If no user is logged in, set "Guest" for both elements
+    document.getElementById('username1').innerHTML = "Guest";
+    document.getElementById('username2').innerHTML = "Guest";
+}
+
+};
+
+
 let balance = 50000; 
 let balanceBox = document.getElementById("balanceBox");
 
@@ -5,66 +28,83 @@ document.getElementById("confirmTransfer").addEventListener("click", () => {
     let amountInput = document.getElementById("receiversAmount");
     let amount = parseFloat(amountInput.value);
     let receiversNameInput = document.getElementById("receiversName");
+    let accountNumber = document.getElementById("accountNumber");
     let receiversName = receiversNameInput.value.trim();
     let amountError = document.getElementById("amountError");
+    let accountNumberError = document.getElementById("accountNumberError");
     let receiverError = document.getElementById("receiverError");
 
-    // check if amount is is empty
+    // Clear previous error messages
+    amountError.textContent = "";
+    accountNumberError.textContent = "";
+    receiverError.textContent = "";
+
+    // Check for valid amount
     if (isNaN(amount) || amount <= 0) {
-        amountError.textContent = "Enter fundings please !" ;
+        amountError.textContent = "Enter a valid amount!";
         return;
     }
 
-    // check if the amount is more than the balance
+    // Check if the amount is more than the balance
     if (amount > balance) {
-        amountError.textContent = "Oga u sef forget say ur fundz no reach 😂😂😂!" ;
+        amountError.textContent = "Insufficient funds! 😂😂😂";
         return;
     }
 
-    // check if the receiver name is empty
+    // Check if the receiver's name is empty
     if (!receiversName) {
-        receiverError.textContent = "Please enter the receiver's name!"
+        receiverError.textContent = "Please enter the receiver's name!";
         return;
     }
 
-    // transfer with amount and receiver's name
-    let confirmFundind = confirm(`Are you sure you want to transfer ${amount}€ to ${receiversName}?`);
-
-    if (!confirmFundind) {
-        return; 
+    // Check if the account number is empty
+    if (!accountNumber.value) {
+        accountNumberError.textContent = "Please enter an account number!";
+        return;
     }
 
-    // then transfer substarct from amount input from balance
+    // Check if the account number is at least 10 digits
+    if (accountNumber.value.length < 10) {
+        accountNumberError.textContent = "Account number must be at least 10 digits!";
+        return;
+    }
+
+    // Confirm transfer
+    let confirmFunding = confirm(`Are you sure you want to transfer ${amount}€ to ${receiversName}?`);
+
+    if (!confirmFunding) return;
+
+    // Deduct amount from balance
     balance -= amount;
-    balanceBox.textContent = balance + "€"; 
+    balanceBox.textContent = balance.toFixed(2) + "€";
 
-
+    // Animate balance change
     balanceBox.classList.add("text-red-500", "scale-110");
     setTimeout(() => {
         balanceBox.classList.remove("text-red-500", "scale-110");
-    }, 500);
+    }, 3000);
 
-    // set all values and textcentent to empty
+    // Reset input fields
+    accountNumber.value = "";
     amountInput.value = "";
-    receiversNameInput.value = ""; 
-    receiverError.textContent = "";
-    amountError.textContent = "" ;
-
+    receiversNameInput.value = "";
 });
+
 
 let transferButtons = document.querySelectorAll('#transferBtn');
 let transferContainer = document.getElementById('transferContainer');
 let transferBox = document.getElementById('transferBox');
 let closeModalButton = document.getElementById('closeModal');
 
-
+// Function to show modal with smooth transition
 let showTransferContainer = () => {
     transferContainer.classList.remove('hidden');
     setTimeout(() => {
         transferBox.classList.remove('opacity-0', 'scale-y-0'); 
-    }, 10);
+    }, 10); // Small delay for smooth effect
+};
 
-
+// Function to close modal smoothly
 let closeTransferContainer = () => {
     transferBox.classList.add('opacity-0', 'scale-y-0'); // Animate out
     setTimeout(() => {
@@ -104,7 +144,7 @@ let show = document.getElementById("show");
 document.getElementById("hideBtn").addEventListener('click', () => {
 // Display and hide more cards
 if (balanceBox.textContent === "*****") {
-        balanceBox.textContent = balance + " " + "€";
+        balanceBox.textContent = balance.toFixed(2) + " " + "€";
         hidden.style.display = "block";
         show.style.display = "none";
         viewText.innerHTML = "Hide";
